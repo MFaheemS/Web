@@ -1,0 +1,105 @@
+/* Type Selector */
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(to right, #f8f9fa, #e9ecef);
+    color: #333;
+}
+
+/* ID Selector */
+#gallery-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+}
+
+/* Header */
+header {
+    background-color: #222;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Navigation Bar */
+.navbar {
+    display: flex;
+    justify-content: center;
+    background-color: #444;
+}
+
+/* Pseudo Classes */
+.navbar a {
+    color: white;
+    padding: 15px 20px;
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    background-color: #ff6f61;
+}
+
+.navbar a:active {
+    background-color: #cc554a;
+}
+
+/* Class Selector */
+.intro {
+    text-align: center;
+    padding: 30px;
+}
+
+/* Gallery Section */
+.gallery {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+/* Art Cards */
+.art-card {
+    background-color: white;
+    width: 250px;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.art-card i,
+.art-card span {
+    font-size: 40px;
+    color: #ff6f61;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    background-color: #222;
+    color: white;
+    padding: 15px;
+}
+
+/* Responsive Web Design - Media Query */
+@media screen and (max-width: 768px) {
+    .gallery {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .art-card {
+        margin-bottom: 20px;
+    }
+}
+
+.intro {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+.intro img {
+    width: 100%;
+    max-width: 600px;   /* controls size */
+    height: auto;
+    border-radius: 10px;
+}
