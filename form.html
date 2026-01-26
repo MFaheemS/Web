@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Form</title>
+</head>
+<body>
+    <header style="display:flex; justify-content: center ; align-items:center; gap:20px;">
+        <img src="images/7.png" alt="Gallery Logo" id="gallery-logo" height="120px" width="120px">
+        <h1 id="gallery-title">Modern Art Gallery</h1>
+    </header>
+
+    <nav style="text-align: center; margin: 20px;">
+        <a href="about.html"><button type="button">About</button></a>
+        <a href="gallery.html"><button type="button">Gallery</button></a>
+        <a href="form.html"><button type="button">Feedback</button></a>
+    </nav>
+
+    <h1>Feedback Form</h1>
+    <form action="/submit" method="POST">
+        <div>
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <br>
+        <div>
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <br>
+        <div>
+            <label for="rating">Rating:</label><br>
+            <select id="rating" name="rating" required>
+                <option value="">Select rating</option>
+                <option value="5">Excellent</option>
+                <option value="4">Good</option>
+                <option value="3">Average</option>
+                <option value="2">Poor</option>
+                <option value="1">Very Poor</option>
+            </select>
+        </div>
+        <br>
+        <div>
+            <label for="comments">Comments:</label><br>
+            <textarea id="comments" name="comments" rows="5" cols="40" required></textarea>
+        </div>
+        <br>
+        <div>
+            <button type="submit">Submit Feedback</button>
+        </div>
+    </form>
+</body>
+</html>
