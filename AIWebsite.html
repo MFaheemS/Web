@@ -19,6 +19,7 @@
 			--font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
 		}
 		*{box-sizing:border-box}
+		html{scroll-behavior:smooth}
 		html,body{height:100%}
 		body{
 			margin:0; font-family:var(--font-sans); color:var(--text); background:var(--bg); -webkit-font-smoothing:antialiased;
@@ -58,6 +59,18 @@
 		.meta{display:flex; flex-direction:column}
 		.title{font-weight:700}
 		.sub{font-size:13px; color:var(--muted)}
+
+		/* Sections & Forms */
+		.page-section{
+			padding:32px; margin:20px 0; background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+			border-radius:12px; border:1px solid rgba(255,255,255,0.03);
+		}
+		.page-section h2{margin:0 0 10px; font-size:clamp(20px,3vw,28px)}
+		.page-section p{color:var(--muted); margin:0 0 12px}
+		.page-section input, .page-section textarea, .page-section select{
+			width:100%; padding:10px 12px; border-radius:8px; border:1px solid rgba(255,255,255,0.06); background:transparent; color:inherit;
+		}
+		.page-section button{padding:10px 14px; border-radius:8px; border:none; background:var(--accent); color:#071423; font-weight:700; cursor:pointer}
 
 		/* Lightbox */
 		.lightbox{position:fixed; inset:0; display:none; background:linear-gradient(180deg, rgba(2,6,23,0.8), rgba(2,6,23,0.95)); place-items:center; z-index:80}
@@ -132,9 +145,6 @@
 		/* small helper */
 		.sr-only{position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden}
 	</style>
-		/* small helper */
-		.sr-only{position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden}
-	</style>
 </head>
 <body>
 	<header>
@@ -148,9 +158,9 @@
 			</div>
 			<nav aria-label="Main navigation">
 				<ul>
-					<li><a href="#" aria-current="page">Gallery</a></li>
+					<li><a href="#gallery" aria-current="page">Gallery</a></li>
 					<li><a href="#about">About</a></li>
-					<li><a href="#exhibitions">Exhibitions</a></li>
+					<li><a href="#feedback">Feedback</a></li>
 					<li><a href="#contact">Contact</a></li>
 					<li><a class="cta" href="#visit">Visit</a></li>
 				</ul>
@@ -190,12 +200,18 @@
 			</div>
 		</section>
 
-		<section class="gallery" aria-labelledby="gallery-heading">
+		<section id="about" class="page-section">
+			<h2>About Studio One</h2>
+			<p class="sub">Studio One is a contemporary art gallery presenting a curated selection of works by emerging and established artists. We focus on painting, photography and sculpture with regular exhibitions and programs.</p>
+			<p>Our mission is to connect audiences with meaningful art experiences through thoughtful curation, education, and community partnerships.</p>
+		</section>
+
+		<section id="gallery" class="gallery" aria-labelledby="gallery-heading">
 			<h2 id="gallery-heading" style="margin:6px 0 14px">Collection</h2>
 			<div class="grid" id="grid">
 				<!-- We'll reuse the local image for demo; in a real site replace with unique images -->
 				<figure data-category="painting">
-					<img src="images/3.avif" alt="Crimson Depths" loading="lazy" data-title="Crimson Depths" data-artist="L. Mendez"/>
+					<img src="images/1.jpg" alt="Crimson Depths" loading="lazy" data-title="Crimson Depths" data-artist="L. Mendez"/>
 					<figcaption>
 						<div class="meta"><div class="title">Crimson Depths</div><div class="sub">L. Mendez — Painting</div></div>
 						<div class="sub">2024</div>
@@ -203,7 +219,7 @@
 				</figure>
 
 				<figure data-category="photo">
-					<img src="images/3.avif" alt="Coastal Light" loading="lazy" data-title="Coastal Light" data-artist="R. Singh"/>
+					<img src="images/2.jpg" alt="Coastal Light" loading="lazy" data-title="Coastal Light" data-artist="R. Singh"/>
 					<figcaption>
 						<div class="meta"><div class="title">Coastal Light</div><div class="sub">R. Singh — Photography</div></div>
 						<div class="sub">2023</div>
@@ -211,7 +227,7 @@
 				</figure>
 
 				<figure data-category="painting">
-					<img src="images/3.avif" alt="Echoes" loading="lazy" data-title="Echoes" data-artist="M. Gupta"/>
+					<img src="images/3.jpg" alt="Echoes" loading="lazy" data-title="Echoes" data-artist="M. Gupta"/>
 					<figcaption>
 						<div class="meta"><div class="title">Echoes</div><div class="sub">M. Gupta — Painting</div></div>
 						<div class="sub">2022</div>
@@ -219,7 +235,7 @@
 				</figure>
 
 				<figure data-category="sculpture">
-					<img src="images/3.avif" alt="Folded Spaces" loading="lazy" data-title="Folded Spaces" data-artist="A. Walsh"/>
+					<img src="images/1.jpg" alt="Folded Spaces" loading="lazy" data-title="Folded Spaces" data-artist="A. Walsh"/>
 					<figcaption>
 						<div class="meta"><div class="title">Folded Spaces</div><div class="sub">A. Walsh — Sculpture</div></div>
 						<div class="sub">2021</div>
@@ -227,7 +243,7 @@
 				</figure>
 
 				<figure data-category="photo">
-					<img src="images/3.avif" alt="Midnight Bloom" loading="lazy" data-title="Midnight Bloom" data-artist="C. Park"/>
+					<img src="images/2.jpg" alt="Midnight Bloom" loading="lazy" data-title="Midnight Bloom" data-artist="C. Park"/>
 					<figcaption>
 						<div class="meta"><div class="title">Midnight Bloom</div><div class="sub">C. Park — Photography</div></div>
 						<div class="sub">2025</div>
@@ -235,7 +251,7 @@
 				</figure>
 
 				<figure data-category="painting">
-					<img src="images/3.avif" alt="Quiet Corner" loading="lazy" data-title="Quiet Corner" data-artist="J. Lee"/>
+					<img src="images/3.jpg" alt="Quiet Corner" loading="lazy" data-title="Quiet Corner" data-artist="J. Lee"/>
 					<figcaption>
 						<div class="meta"><div class="title">Quiet Corner</div><div class="sub">J. Lee — Painting</div></div>
 						<div class="sub">2020</div>
@@ -243,6 +259,40 @@
 				</figure>
 
 			</div>
+		</section>
+
+		<section id="feedback" class="page-section">
+			<h2>Feedback</h2>
+			<form action="#" method="POST">
+				<div>
+					<label for="fb-name">Name:</label><br>
+					<input id="fb-name" name="name" type="text" required>
+				</div>
+				<br>
+				<div>
+					<label for="fb-email">Email:</label><br>
+					<input id="fb-email" name="email" type="email" required>
+				</div>
+				<br>
+				<div>
+					<label for="fb-comments">Comments:</label><br>
+					<textarea id="fb-comments" name="comments" rows="5" required></textarea>
+				</div>
+				<br>
+				<div>
+					<button type="submit">Submit Feedback</button>
+				</div>
+			</form>
+		</section>
+
+		<section id="contact" class="page-section">
+			<h2>Contact</h2>
+			<p class="sub">Email: info@studioone.example • Phone: (555) 123-4567</p>
+		</section>
+
+		<section id="visit" class="page-section">
+			<h2>Visit</h2>
+			<p class="sub">Open daily 10:00 — 18:00. 123 Gallery Lane, City.</p>
 		</section>
 
 		<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
