@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Art Gallery - Single Page</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        html { scroll-behavior: smooth; }
+        .page-section { padding: 40px 20px; }
+        header { display:flex; justify-content: center; align-items:center; gap:20px; }
+        #gallery-logo { max-width:120px; height:auto; }
+        nav { text-align: center; margin: 20px; }
+        nav a { margin: 0 6px; }
+        nav button { padding: 8px 12px; cursor: pointer; }
+        .gallery { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+        .gallery img { max-width:300px; width:100%; height:auto; }
+
+        @media screen and (max-width: 600px) {
+            header { flex-direction: column; gap: 10px; }
+            #gallery-logo { max-width: 80px; }
+            nav { margin: 10px; }
+            nav a { display: block; margin: 6px 0; }
+            nav button { width: 100%; }
+            .page-section { padding: 20px 10px; }
+            .gallery { flex-direction: column; align-items: center; }
+            .gallery img { max-width: 90%; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="images/7.png" alt="Gallery Logo" id="gallery-logo" height="120" width="120">
+        <h1 id="gallery-title">Modern Art Gallery</h1>
+    </header>
+
+    <nav>
+        <a href="#about"><button type="button">About</button></a>
+        <a href="#gallery"><button type="button">Gallery</button></a>
+        <a href="#form"><button type="button">Feedback</button></a>
+        <a href="#signin"><button type="button">Sign In</button></a>
+        <a href="#signup"><button type="button">Sign Up</button></a>
+        <a href="#source"><button type="button">Source</button></a>
+    </nav>
+
+    <main>
+        <section id="about" class="page-section">
+            <h2>About Us</h2>
+            <p>Welcome to Modern Art Gallery. This is testststst. Made in web B class 3</p>
+        </section>
+
+        <section id="gallery" class="page-section">
+            <h2 style="text-align:center;">Our Gallery</h2>
+            <div class="gallery">
+                <img src="images/1.jpg" alt="Art 1">
+                <img src="images/2.jpg" alt="Art 2">
+                <img src="images/3.jpg" alt="Art 3">
+            </div>
+        </section>
+
+        <section id="form" class="page-section">
+            <h2>Feedback Form</h2>
+            <form action="/submit" method="POST">
+                <div>
+                    <label for="name">Name:</label><br>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <br>
+                <div>
+                    <label for="email">Email:</label><br>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <br>
+                <div>
+                    <label for="rating">Rating:</label><br>
+                    <select id="rating" name="rating" required>
+                        <option value="">Select rating</option>
+                        <option value="5">Excellent</option>
+                        <option value="4">Good</option>
+                        <option value="3">Average</option>
+                        <option value="2">Poor</option>
+                        <option value="1">Very Poor</option>
+                    </select>
+                </div>
+                <br>
+                <div>
+                    <label for="comments">Comments:</label><br>
+                    <textarea id="comments" name="comments" rows="5" cols="40" required></textarea>
+                </div>
+                <br>
+                <div>
+                    <button type="submit">Submit Feedback</button>
+                </div>
+            </form>
+        </section>
+
+        <section id="signin" class="page-section">
+            <h2>Sign In</h2>
+            <form>
+                <div>
+                    <label for="signin-email">Email:</label><br>
+                    <input type="email" id="signin-email" name="email" required>
+                </div>
+                <br>
+                <div>
+                    <label for="signin-password">Password:</label><br>
+                    <input type="password" id="signin-password" name="password" required>
+                </div>
+                <br>
+                <div>
+                    <button type="button" onclick="location.hash='source'">Sign In</button>
+                </div>
+            </form>
+            <br>
+            <p>Don't have an account? <a href="#signup">Sign Up</a></p>
+        </section>
+
+        <section id="signup" class="page-section">
+            <h2>Sign Up</h2>
+            <form>
+                <div>
+                    <label for="signup-name">Name:</label><br>
+                    <input type="text" id="signup-name" name="name" required>
+                </div>
+                <br>
+                <div>
+                    <label for="signup-email">Email:</label><br>
+                    <input type="email" id="signup-email" name="email" required>
+                </div>
+                <br>
+                <div>
+                    <label for="signup-password">Password:</label><br>
+                    <input type="password" id="signup-password" name="password" required>
+                </div>
+                <br>
+                <div>
+                    <button type="button" onclick="location.hash='signin'">Sign Up</button>
+                </div>
+            </form>
+            <br>
+            <p>Already have an account? <a href="#signin">Sign In</a></p>
+        </section>
+
+</main>
+</body>
+</html>

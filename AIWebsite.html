@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>Studio One — Art Gallery</title>
+	<meta name="description" content="Studio One — a professional, responsive art gallery showcasing curated artworks." />
+	<style>
+		:root{
+			/* Default (desktop) — dark gallery theme */
+			--bg: linear-gradient(180deg,#071129 0%, #091223 50%);
+			--bg-solid: #071129;
+			--card:#0b1220;
+			--text:#e6eef6;
+			--muted:#9aa4b2;
+			--accent:#ff6b6b;
+			--glass: rgba(255,255,255,0.04);
+			--max-width:1200px; --radius:12px; --gap:18px;
+			--font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+		}
+		*{box-sizing:border-box}
+		html,body{height:100%}
+		body{
+			margin:0; font-family:var(--font-sans); color:var(--text); background:var(--bg); -webkit-font-smoothing:antialiased;
+			line-height:1.45; -webkit-text-size-adjust:100%;
+		}
+		a{color:inherit; text-decoration:none}
+		header{
+			backdrop-filter: blur(6px); position:sticky; top:0; z-index:40; background:linear-gradient(180deg, rgba(10,14,21,0.6), rgba(10,14,21,0.3)); border-bottom:1px solid rgba(255,255,255,0.03);
+		}
+		.container{max-width:var(--max-width); margin:0 auto; padding:18px;}
+		.nav-row{display:flex; align-items:center; justify-content:space-between; gap:12px}
+		.brand{display:flex; gap:12px; align-items:center}
+		.logo{width:44px; height:44px; background:linear-gradient(135deg,var(--accent), #ff9a9a); border-radius:9px; display:grid; place-items:center; font-weight:700; color:#081423}
+		nav ul{display:flex; gap:12px; align-items:center; margin:0; padding:0; list-style:none}
+		nav a{padding:8px 12px; border-radius:8px; color:var(--muted); font-weight:600}
+		nav a:hover{color:#fff; background:var(--glass)}
+		.cta{background:linear-gradient(90deg,var(--accent),#ff9a9a); color:#071423; padding:9px 14px; border-radius:10px; font-weight:700}
+
+		/* Hero */
+		.hero{padding:56px 0 40px}
+		.hero-grid{display:grid; grid-template-columns:1fr 420px; gap:28px; align-items:center}
+		.hero h1{font-size:clamp(28px,4vw,44px); margin:0 0 10px}
+		.hero p{margin:0 0 18px; color:var(--muted); max-width:60ch}
+		.search{display:flex; gap:10px; align-items:center}
+		.search input{flex:1; padding:12px 14px; border-radius:10px; border:1px solid rgba(255,255,255,0.04); background:transparent; color:inherit}
+		.filters{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px}
+		.chip{padding:8px 12px; border-radius:999px; background:rgba(255,255,255,0.03); color:var(--muted); cursor:pointer; font-weight:600}
+		.chip.active{background:linear-gradient(90deg,var(--accent),#ff9a9a); color:#071423}
+
+		/* Gallery */
+		.gallery{padding:18px 0 80px}
+		.grid{display:grid; grid-template-columns:repeat(3,1fr); gap:var(--gap)}
+		figure{margin:0; background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent); border-radius:12px; overflow:hidden; position:relative}
+		figure img{width:100%; height:320px; object-fit:cover; display:block; transition:transform .36s ease}
+		figure:hover img{transform:scale(1.03)}
+		figcaption{padding:12px 14px; display:flex; justify-content:space-between; align-items:center}
+		.meta{display:flex; flex-direction:column}
+		.title{font-weight:700}
+		.sub{font-size:13px; color:var(--muted)}
+
+		/* Lightbox */
+		.lightbox{position:fixed; inset:0; display:none; background:linear-gradient(180deg, rgba(2,6,23,0.8), rgba(2,6,23,0.95)); place-items:center; z-index:80}
+		.lightbox.show{display:grid}
+		.lightbox-content{max-width:90%; max-height:90%; border-radius:12px; overflow:hidden; background:#071223; padding:12px}
+		.lightbox-content img{width:100%; height:auto; display:block}
+		.lb-meta{color:var(--muted); margin-top:8px; display:flex; justify-content:space-between}
+
+		/* Footer */
+		footer{padding:28px 0; color:var(--muted); border-top:1px solid rgba(255,255,255,0.02)}
+
+		/* Responsive + Theme-switching: each breakpoint overrides variables and some layout for a distinct look */
+
+		/* Large desktops: enhanced gallery layout */
+		@media (min-width:1400px){
+			:root{ --max-width:1400px; --gap:24px; }
+			.grid{grid-template-columns:repeat(4,1fr)}
+			.hero{padding:80px 0 48px}
+			.logo{border-radius:10px}
+			/* subtle gold accent on very large screens */
+			:root{ --accent: #f5c06b; }
+			.logo{background:linear-gradient(135deg,var(--accent),#ffd7a6); color:#08202a}
+		}
+
+		/* Tablet / small desktop: warm light theme */
+		@media (max-width:1000px){
+			:root{
+				--bg: linear-gradient(180deg,#fffaf6 0%, #fff7f0 100%);
+				--bg-solid: #fff7f0;
+				--text: #0b2230;
+				--muted: #6b7280;
+				--card: #ffffff;
+				--accent: #0ea5a4; /* teal accent */
+				--glass: rgba(2,6,23,0.03);
+			}
+			header{box-shadow:0 2px 10px rgba(12,18,24,0.04); border-bottom:1px solid rgba(2,6,23,0.04)}
+			nav a{color:var(--text)}
+			.logo{background:linear-gradient(135deg,var(--accent), #7fe3df); color:#052426}
+			.hero-grid{grid-template-columns:1fr}
+			.grid{grid-template-columns:repeat(2,1fr)}
+			figure{background:transparent; border:1px solid rgba(2,6,23,0.04)}
+			figure img{height:240px}
+			.chip{background:transparent; border:1px solid rgba(2,6,23,0.06); color:var(--muted)}
+			.chip.active{background:var(--accent); color:#052426}
+		}
+
+		/* Mobile: minimal, pastel theme, single-column, touch-friendly */
+		@media (max-width:640px){
+			:root{
+				--bg: linear-gradient(180deg,#fff8ff 0%, #f8fbff 100%);
+				--bg-solid: #fff8ff;
+				--text: #052025;
+				--muted: #8b8ea3;
+				--card: #ffffff;
+				--accent: #a78bfa; /* violet accent */
+				--glass: rgba(2,6,23,0.02);
+			}
+			nav ul{display:none}
+			.grid{grid-template-columns:repeat(1,1fr)}
+			.logo{width:40px; height:40px}
+			header .container{padding:12px}
+			.hero{padding:28px 0}
+			.hero h1{font-size:22px}
+			.hero p{color:var(--muted)}
+			figure img{height:360px; border-radius:8px}
+			aside{display:none}
+			.chip{padding:10px 14px; font-size:15px}
+			.cta{position:fixed; right:16px; bottom:16px; z-index:60; box-shadow:0 6px 20px rgba(167,139,250,0.18)}
+			footer{padding:20px 0}
+		}
+
+		/* small helper */
+		.sr-only{position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden}
+	</style>
+		/* small helper */
+		.sr-only{position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden}
+	</style>
+</head>
+<body>
+	<header>
+		<div class="container nav-row">
+			<div class="brand">
+				<div class="logo">S1</div>
+				<div>
+					<div style="font-weight:800">Studio One</div>
+					<div style="font-size:12px;color:var(--muted);">Contemporary Art Gallery</div>
+				</div>
+			</div>
+			<nav aria-label="Main navigation">
+				<ul>
+					<li><a href="#" aria-current="page">Gallery</a></li>
+					<li><a href="#about">About</a></li>
+					<li><a href="#exhibitions">Exhibitions</a></li>
+					<li><a href="#contact">Contact</a></li>
+					<li><a class="cta" href="#visit">Visit</a></li>
+				</ul>
+			</nav>
+		</div>
+	</header>
+
+	<main class="container">
+		<section class="hero">
+			<div class="hero-grid">
+				<div>
+					<h1>Handpicked artworks — modern, bold, timeless.</h1>
+					<p>Explore the Studio One collection of contemporary paintings and photography. Filter by medium or search by title to find pieces that inspire.</p>
+					<div class="search" role="search">
+						<input id="search" placeholder="Search artworks by title or artist" aria-label="Search artworks" />
+						<button id="searchBtn" class="chip">Search</button>
+					</div>
+					<div class="filters" role="list" aria-label="Filters">
+						<button class="chip active" data-filter="all">All</button>
+						<button class="chip" data-filter="painting">Painting</button>
+						<button class="chip" data-filter="photo">Photography</button>
+						<button class="chip" data-filter="sculpture">Sculpture</button>
+					</div>
+				</div>
+
+				<aside style="background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent); padding:18px; border-radius:12px">
+					<strong>Now Showing</strong>
+					<p class="sub" style="margin-top:8px">"The Quiet Horizon" — installation through March. Open daily by appointment.</p>
+					<div style="margin-top:12px; display:flex; gap:8px; align-items:center">
+						<img src="images/3.avif" alt="Featured artwork" style="width:84px;height:84px;object-fit:cover;border-radius:8px;"/>
+						<div>
+							<div style="font-weight:700">Quiet Horizon</div>
+							<div class="sub">A. Rivera — 2025</div>
+						</div>
+					</div>
+				</aside>
+			</div>
+		</section>
+
+		<section class="gallery" aria-labelledby="gallery-heading">
+			<h2 id="gallery-heading" style="margin:6px 0 14px">Collection</h2>
+			<div class="grid" id="grid">
+				<!-- We'll reuse the local image for demo; in a real site replace with unique images -->
+				<figure data-category="painting">
+					<img src="images/3.avif" alt="Crimson Depths" loading="lazy" data-title="Crimson Depths" data-artist="L. Mendez"/>
+					<figcaption>
+						<div class="meta"><div class="title">Crimson Depths</div><div class="sub">L. Mendez — Painting</div></div>
+						<div class="sub">2024</div>
+					</figcaption>
+				</figure>
+
+				<figure data-category="photo">
+					<img src="images/3.avif" alt="Coastal Light" loading="lazy" data-title="Coastal Light" data-artist="R. Singh"/>
+					<figcaption>
+						<div class="meta"><div class="title">Coastal Light</div><div class="sub">R. Singh — Photography</div></div>
+						<div class="sub">2023</div>
+					</figcaption>
+				</figure>
+
+				<figure data-category="painting">
+					<img src="images/3.avif" alt="Echoes" loading="lazy" data-title="Echoes" data-artist="M. Gupta"/>
+					<figcaption>
+						<div class="meta"><div class="title">Echoes</div><div class="sub">M. Gupta — Painting</div></div>
+						<div class="sub">2022</div>
+					</figcaption>
+				</figure>
+
+				<figure data-category="sculpture">
+					<img src="images/3.avif" alt="Folded Spaces" loading="lazy" data-title="Folded Spaces" data-artist="A. Walsh"/>
+					<figcaption>
+						<div class="meta"><div class="title">Folded Spaces</div><div class="sub">A. Walsh — Sculpture</div></div>
+						<div class="sub">2021</div>
+					</figcaption>
+				</figure>
+
+				<figure data-category="photo">
+					<img src="images/3.avif" alt="Midnight Bloom" loading="lazy" data-title="Midnight Bloom" data-artist="C. Park"/>
+					<figcaption>
+						<div class="meta"><div class="title">Midnight Bloom</div><div class="sub">C. Park — Photography</div></div>
+						<div class="sub">2025</div>
+					</figcaption>
+				</figure>
+
+				<figure data-category="painting">
+					<img src="images/3.avif" alt="Quiet Corner" loading="lazy" data-title="Quiet Corner" data-artist="J. Lee"/>
+					<figcaption>
+						<div class="meta"><div class="title">Quiet Corner</div><div class="sub">J. Lee — Painting</div></div>
+						<div class="sub">2020</div>
+					</figcaption>
+				</figure>
+
+			</div>
+		</section>
+
+		<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+			<div class="lightbox-content" id="lbContent">
+				<img id="lbImg" src="" alt="" />
+				<div class="lb-meta"><div id="lbTitle"></div><div><button id="closeBtn" class="chip">Close</button></div></div>
+			</div>
+		</div>
+
+	</main>
+
+	<footer>
+		<div class="container" style="display:flex;justify-content:space-between;align-items:center">
+			<div>
+				<div style="font-weight:700">Studio One</div>
+				<div class="sub">© Studio One — All rights reserved</div>
+			</div>
+			<div class="sub">Made with care • Responsive • Accessible</div>
+		</div>
+	</footer>
+
+	<script>
+		// Basic interactivity: filters, search and lightbox
+		(function(){
+			const chips = document.querySelectorAll('.chip[data-filter]');
+			const grid = document.getElementById('grid');
+			const figures = Array.from(grid.querySelectorAll('figure'));
+			const searchInput = document.getElementById('search');
+
+			function applyFilter(filter){
+				figures.forEach(f=>{
+					const cat = f.dataset.category || 'all';
+					const matches = (filter==='all' || cat===filter) && matchesSearch(f);
+					f.style.display = matches ? '' : 'none';
+				});
+			}
+
+			function matchesSearch(fig){
+				const q = searchInput.value.trim().toLowerCase();
+				if(!q) return true;
+				const img = fig.querySelector('img');
+				const t = (img.dataset.title||'') + ' ' + (img.dataset.artist||'');
+				return t.toLowerCase().includes(q);
+			}
+
+			chips.forEach(c=>{
+				c.addEventListener('click', ()=>{
+					chips.forEach(x=>x.classList.remove('active'));
+					c.classList.add('active');
+					applyFilter(c.dataset.filter);
+				});
+			});
+
+			document.getElementById('searchBtn').addEventListener('click', ()=>{
+				const active = document.querySelector('.chip.active');
+				applyFilter(active ? active.dataset.filter : 'all');
+			});
+			searchInput.addEventListener('input', ()=>{
+				const active = document.querySelector('.chip.active');
+				applyFilter(active ? active.dataset.filter : 'all');
+			});
+
+			// Lightbox
+			const lb = document.getElementById('lightbox');
+			const lbImg = document.getElementById('lbImg');
+			const lbTitle = document.getElementById('lbTitle');
+			const closeBtn = document.getElementById('closeBtn');
+
+			figures.forEach(f=>{
+				f.addEventListener('click', ()=>{
+					const img = f.querySelector('img');
+					openLightbox(img.src, img.alt, img.dataset.title + ' — ' + img.dataset.artist);
+				});
+			});
+
+			function openLightbox(src, alt, title){
+				lbImg.src = src; lbImg.alt = alt || '';
+				lbTitle.textContent = title || '';
+				lb.classList.add('show');
+				lb.setAttribute('aria-hidden','false');
+				document.body.style.overflow = 'hidden';
+				closeBtn.focus();
+			}
+
+			function closeLightbox(){
+				lb.classList.remove('show'); lb.setAttribute('aria-hidden','true');
+				document.body.style.overflow = '';
+				lbImg.src = '';
+			}
+
+			closeBtn.addEventListener('click', closeLightbox);
+			lb.addEventListener('click', (e)=>{ if(e.target === lb) closeLightbox(); });
+			document.addEventListener('keydown', (e)=>{
+				if(e.key === 'Escape') closeLightbox();
+			});
+
+			// initial layout
+			applyFilter('all');
+		})();
+	</script>
+</body>
+</html>
