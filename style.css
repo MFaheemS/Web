@@ -103,3 +103,64 @@ footer {
     height: auto;
     border-radius: 10px;
 }
+
+/* Styles moved from inline index.html */
+html { scroll-behavior: smooth; }
+:root {
+    --bg: linear-gradient(135deg, #f7f3ef 0%, #eef6ff 100%);
+    --text: #1b2430;
+    --accent: #0f2b4a;
+    --btn-bg: rgba(255,255,255,0.9);
+    --section-padding: 40px 20px;
+}
+
+.page-section { padding: var(--section-padding); }
+.page-section { background: rgba(255,255,255,0.6); border-top: 1px solid rgba(11,20,30,0.04); margin: 8px 12px; border-radius: 6px; }
+.page-section h2 { margin-top: 0; padding-top: 6px; text-align: left; font-size: 1.35rem; border-bottom: 1px solid rgba(11,20,30,0.04); padding-bottom: 8px; }
+.icon { vertical-align: middle; margin-right: 8px; display: inline-block; }
+.material-icons, .fa { font-size: 18px; line-height: 1; }
+header { display:flex; justify-content: center; align-items:center; gap:20px; }
+#gallery-logo { max-width:120px; height:auto; }
+nav { text-align: center; margin: 20px; }
+nav a { margin: 0 6px; }
+nav button { padding: 8px 12px; cursor: pointer; border-radius: 6px; border: 1px solid rgba(0,0,0,0.08); background-color: var(--btn-bg); color: var(--text); }
+.gallery { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; align-items:flex-start; }
+.gallery figure { margin: 0; width: 300px; background: transparent; border-radius: 6px; }
+.gallery img { display:block; width:100%; height:auto; }
+.gallery figcaption { font-size: 0.85rem; color: rgba(0,0,0,0.7); padding: 8px 10px; text-align: center; }
+
+body { margin:0; background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+header h1 { margin: 0; color: var(--accent); }
+
+@media screen and (max-width: 900px) {
+    :root {
+        --bg: #eaf5ff;
+        --text: #07203a;
+        --accent: #184a75;
+        --btn-bg: rgba(255,255,255,0.9);
+        --section-padding: 30px 16px;
+    }
+
+    header { gap: 14px; }
+    #gallery-logo { max-width:100px; }
+    nav { margin: 16px; }
+    nav a { margin: 0 4px; }
+}
+
+@media screen and (max-width: 600px) {
+    :root {
+        --bg: #fff6f0;
+        --text: #3b2f2f;
+        --accent: #a84b2f;
+        --btn-bg: rgba(255,255,255,0.95);
+        --section-padding: 20px 10px;
+    }
+
+    header { flex-direction: column; gap: 10px; }
+    #gallery-logo { max-width: 80px; }
+    nav { margin: 10px; }
+    nav a { display: block; margin: 6px 0; }
+    nav button { width: 100%; }
+    .gallery { flex-direction: column; align-items: center; }
+    .gallery img { max-width: 90%; }
+}
